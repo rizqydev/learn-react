@@ -81,6 +81,7 @@ export const YoutubeForm = () => {
 
           <label htmlFor="username">Name</label>
           <input type="text" id="username" {...register("username", {
+            disabled: true,
             required: {
               value: true,
               message: "Username is required"
@@ -120,7 +121,8 @@ export const YoutubeForm = () => {
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
           <input type="text" id="twitter" {...register("social.twitter", {
-            required: "Twitter is required"
+            required: "Twitter is required",
+            disabled: watch("channel") === "",
           })} />
           <p className="error">{errors.social?.twitter?.message}</p>
         </div>
