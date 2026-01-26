@@ -7,20 +7,24 @@ let renderCount = 0
 type FormValues = {
   username: string
   email: string
-  channel: string
+  channel: string,
+  social: {
+    twitter: string
+    facebook: string
+  } 
 }
 
 export const YoutubeForm = () => {
   const form = useForm<FormValues>({
-    defaultValues: async () => {
-      const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
-      const data = await response.json()
-      return {
-        username: data.name,
-        email: data.email,
-        channel: ""
+    defaultValues: {
+      username: "batman",
+      email: "",
+      channel: "",
+      social: {
+        twitter: "",
+        facebook: ""
       }
-    }
+    } 
   })
 
   const { register, handleSubmit, control, formState } = form
@@ -74,6 +78,22 @@ export const YoutubeForm = () => {
             required: "Channel is required"
           })} />
           <p className="error">{errors.channel?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input type="text" id="twitter" {...register("social.twitter", {
+            required: "Twitter is required"
+          })} />
+          <p className="error">{errors.social?.twitter?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook</label>
+          <input type="text" id="facebook" {...register("social.facebook", {
+            required: "Facebook is required"
+          })} />
+          <p className="error">{errors.social?.facebook?.message}</p>
         </div>
 
         <button type="submit">Submit</button>
