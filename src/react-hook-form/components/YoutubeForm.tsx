@@ -37,7 +37,7 @@ export const YoutubeForm = () => {
     } 
   })
 
-  const { register, handleSubmit, control, formState } = form
+  const { register, handleSubmit, control, formState, watch } = form
   const { errors } = formState
 
   const { fields, append, remove } = useFieldArray({
@@ -49,10 +49,24 @@ export const YoutubeForm = () => {
     console.log("Form submitted", data)
   }
 
+  // const watchUsername = watch("username")
+  // const watchForm = watch()
+
+  // using this to prevent re render on every keystroke
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log("watching", value);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   renderCount++
   return (
     <>
       <h1>Youtube Form {renderCount}</h1>
+      {/* <h2>Watched value: {JSON.stringify(watchForm)}</h2> */}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control">
 
