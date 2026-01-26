@@ -37,13 +37,22 @@ export const YoutubeForm = () => {
     } 
   })
 
-  const { register, handleSubmit, control, formState, watch } = form
+  const { register, handleSubmit, control, formState, watch, getValues, setValue } = form
   const { errors } = formState
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumber",
     control
   })
+
+  const handleSetValue = () => {
+    // setValue("username", "superman")
+    setValue("username", "", {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true
+    })
+  }
 
   const onSubmit = (data: FormValues) => {
     console.log("Form submitted", data)
@@ -179,6 +188,9 @@ export const YoutubeForm = () => {
         </div>
 
         <button type="submit">Submit</button>
+        <button type="button" onClick={() => console.log(getValues(["social.facebook", "channel"]))}>Get Values</button>
+        
+        <button type="button" onClick={handleSetValue}>Set Value</button>
 
       </form>
       <DevTool control={control} />
