@@ -11,7 +11,8 @@ type FormValues = {
   social: {
     twitter: string
     facebook: string
-  } 
+  },
+  phoneNumber: string[] 
 }
 
 export const YoutubeForm = () => {
@@ -23,7 +24,8 @@ export const YoutubeForm = () => {
       social: {
         twitter: "",
         facebook: ""
-      }
+      },
+      phoneNumber: ["", ""]
     } 
   })
 
@@ -94,6 +96,22 @@ export const YoutubeForm = () => {
             required: "Facebook is required"
           })} />
           <p className="error">{errors.social?.facebook?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primary-phone">Primary phone number</label>
+          <input type="text" id="primary-phone" {...register("phoneNumber.0", {
+            required: "Primary Phone Number is required"
+          })} />
+          <p className="error">{errors.phoneNumber?.[0]?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="secondary-phone">Secondary phone number</label>
+          <input type="text" id="secondary-phone" {...register("phoneNumber.1", {
+            required: "Secondary Phone Number is required"
+          })} />
+          <p className="error">{errors.phoneNumber?.[1]?.message}</p>
         </div>
 
         <button type="submit">Submit</button>
