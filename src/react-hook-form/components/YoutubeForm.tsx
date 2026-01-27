@@ -1,4 +1,4 @@
-import { useFieldArray, useForm } from "react-hook-form"
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
 import { useEffect, useState } from "react"
 
@@ -54,6 +54,10 @@ export const YoutubeForm = () => {
     })
   }
 
+  const onError = (errors: FieldErrors<FormValues>) => {
+    console.log("Form errors", errors)
+  }
+
   const onSubmit = (data: FormValues) => {
     console.log("Form submitted", data)
   }
@@ -62,13 +66,13 @@ export const YoutubeForm = () => {
   // const watchForm = watch()
 
   // using this to prevent re render on every keystroke
-  useEffect(() => {
-    const subscription = watch((value) => {
-      console.log("watching", value);
-    });
+  // useEffect(() => {
+  //   const subscription = watch((value) => {
+  //     console.log("watching", value);
+  //   });
 
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   renderCount++
   return (
@@ -76,7 +80,7 @@ export const YoutubeForm = () => {
       <h1>Youtube Form {renderCount}</h1>
       {/* <h2>Watched value: {JSON.stringify(watchForm)}</h2> */}
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="form-control">
 
           <label htmlFor="username">Name</label>
