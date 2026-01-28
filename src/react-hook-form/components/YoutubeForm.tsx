@@ -193,7 +193,7 @@ export const YoutubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!formState.isDirty}>Submit</button>
         <button type="button" onClick={() => console.log(getValues(["social.facebook", "channel"]))}>Get Values</button>
         
         <button type="button" onClick={handleSetValue}>Set Value</button>
